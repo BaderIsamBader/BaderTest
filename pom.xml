@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.almosafer.qa</groupId>
-    <artifactId>apiTests</artifactId> <!-- Changed artifactId to match the jar name -->
+    <artifactId>apiTests</artifactId> 
     <version>1.0-SNAPSHOT</version>
 
     <dependencies>
@@ -38,7 +38,7 @@
     </dependencies>
 
     <build>
-        <finalName>apiTests</finalName> <!-- Setting the final jar name -->
+        <finalName>apiTests</finalName>
         <plugins>
             <!-- JUnit 5 support with Maven Surefire -->
             <plugin>
@@ -47,7 +47,7 @@
                 <version>3.0.0-M7</version>
                 <configuration>
                     <includes>
-                        <include>**/*Tests.java</include> <!-- Pick any class with "Tests" in the name -->
+                        <include>**/*Tests.java</include> 
                         <include>**/tests/*.java</include>
                     </includes>
                     <testSourceDirectory>${project.basedir}/src/test/java</testSourceDirectory>
