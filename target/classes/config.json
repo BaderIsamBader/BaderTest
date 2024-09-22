@@ -1,0 +1,25 @@
+{
+  "baseUrl": "https://www.almosafer.com/api",
+  "authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eFZHQmRQK09tMjllRnh0ajJoMEhKQ3dBNE5BdW1QRXphSmNqaGVWQnhPeVJoa2NwRERmSkhqUGpQcFZtdUVhOUorUG9qOVZZWnBLbG9oMmJtUXFhTzlBOFVENEtlb0pIWUhRbkxyRGNOWXpPZGV1RkJiQ0JsR1RpZFNiNGFBRitXSys3cXNzaEpRRTRpQnF0S01pL2J2ZEM5ek9jZGRSa0x1S3YrUk9nU2tiSk5ZQjZOUTJtaG9OaDlkM0pxKzl3NEtnQ05hQkFHdmt0aVF2emkzRVNBREd4MnBFMG96RzA3L0NROExFZ2tiTXZIdGR5UU1kWm92NzJUenlvT3hCTmFWbHp1TzBLaW9ON1QrR2JBMTRERitodDQ4OVdxRUsxOHdZQkhLYk1UUTFCaWN3eHk2dG51NmF1UmNDQzQwZCtzOU9GcjU2QzNyMCtTSTd0RENBZ3R3OFVHMG1CY245YXpSMFZVWkhQa1Q4cE1NbmhmK2tDT1RrZkFLNjFaYzhGVVpQU1RWcTJueGtvN1A2aG1xOWVpOUszS0o1YjU5RXl3Yk1qVjNucFRQd1oyM1ZFbzlXZkV6eTFVV1JSNlRhYzhOQWpYWERIK1dlZmZFWVRTUmN1NlE9PQ.LVgR5_lY5aG88aodufL2n_bR6W8O41qItv9khMD5pgg",
+  "headers": {
+    "accept": "application/json, text/javascript",
+    "accept-language": "en-US,en;q=0.9",
+    "content-type": "application/json",
+    "x-tz": "Asia/Amman",
+    "x-locale": "en",
+    "x-currency": "SAR",
+    "origin": "https://www.almosafer.com",
+    "pragma": "no-cache",
+    "priority": "u=1, i",
+    "referer": "https://www.almosafer.com/en/flights/DMM-DXB/2024-09-21/2024-09-22/Economy/1Adult",
+    "sec-ch-ua": "\"Google Chrome\";v=\"129\", \"Not=A?Brand\";v=\"8\", \"Chromium\";v=\"129\"",
+    "sec-ch-ua-mobile": "?0",
+    "sec-ch-ua-platform": "Windows",
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "same-origin",
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36",
+    "x-app-name": "ct-web-flights-desktop-almosafer",
+    "x-bt": "next"
+  }
+}
