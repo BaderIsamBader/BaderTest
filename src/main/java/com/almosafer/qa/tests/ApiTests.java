@@ -7,10 +7,13 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
+
 import static org.junit.Assert.*;
 
 public class ApiTests {
@@ -22,9 +25,8 @@ public class ApiTests {
     @BeforeClass
     public static void setup() {
         // Load configuration from the config.json file located in resources
-        // The config contains API base URL, authorization tokens, and any additional headers
         JSONObject config = ConfigLoader.loadConfig("src/main/resources/config.json");
-        
+
         // Extract and set the base URL for the API
         baseUrl = config.getString("baseUrl");
 
@@ -49,18 +51,16 @@ public class ApiTests {
 
         // Assert that the response status code is 200 (Success)
         assertEquals(200, response.getStatusCode());
-        // Use if you want to see the result of the successful retrieval
-        // System.out.println("**Currency list retrieved successfully!**");
+        System.out.println("**Currency list retrieved successfully!**");
 
         // Assert that the response body is not null and print it for verification
         assertNotNull("Response body should not be null", response.getBody().asString());
         String responseBody = response.getBody().asString();
-        // Use if you want to see the body of the results
-        // System.out.println("  - Response Body:\n" + responseBody);
+        System.out.println("  - Response Body:\n" + responseBody);
 
         // Parse the response body as JSON to validate specific fields
         JSONObject jsonResponse = new JSONObject(responseBody);
-        
+
         // Check if the base currency exists and assert that it's "SAR" (Saudi Riyal)
         JSONObject baseCurrency = jsonResponse.getJSONObject("base");
         assertNotNull(baseCurrency);
@@ -70,7 +70,7 @@ public class ApiTests {
         // Verify the list of equivalent currencies and ensure it's not empty
         JSONArray equivalentCurrencies = jsonResponse.getJSONArray("equivalent");
         assertTrue("Equivalent currencies should not be empty", equivalentCurrencies.length() > 0);
-        
+
         // Loop through each currency and check that the currency code exists and the exchange rate is valid
         for (int i = 0; i < equivalentCurrencies.length(); i++) {
             JSONObject currency = equivalentCurrencies.getJSONObject(i);
@@ -85,6 +85,12 @@ public class ApiTests {
         // Load the request body from an external JSON file containing predefined flight search parameters
         JSONObject requestBody = ConfigLoader.loadConfig("src/main/resources/request_body.json");
 
+        // Dynamic data generation for fields like origin, destination, passengers, flight class
+        String origin = DynamicDataGenerator.getRandomCity();
+        String destination = DynamicDataGenerator.getRandomCity();
+        int passengerCount = DynamicDataGenerator.getRandomPassengerCount();
+        String flightClass = DynamicDataGenerator.getRandomFlightClass();
+
         // Get today's date using the LocalDate class and format it as "yyyy-MM-dd" for the API request
         LocalDate today = LocalDate.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -93,33 +99,40 @@ public class ApiTests {
         String startDate = today.format(formatter);
         String endDate = today.plusDays(9).format(formatter);
 
-        // Update the request body with these dynamically generated dates in the flight search criteria
-        requestBody.getJSONArray("leg").getJSONObject(0).put("departureFrom", startDate);
-        requestBody.getJSONArray("leg").getJSONObject(0).put("departureTo", endDate);
+        // Update the request body with dynamic data for origin, destination, and flight dates
+        JSONArray legArray = requestBody.getJSONArray("leg");
+        JSONObject legObject = legArray.getJSONObject(0);
+
+        legObject.put("origin", origin);
+        legObject.put("destination", destination);
+        legObject.put("departureFrom", startDate);
+        legObject.put("departureTo", endDate);
+        legObject.put("class", flightClass);
+
+        // Update passenger count dynamically
+        requestBody.put("passengerCount", passengerCount);
 
         // Define the endpoint for retrieving flight fare information
         String endpoint = "/v3/flights/flight/get-fares-calender";
-        
-        // Perform a POST request with the base URL, endpoint, headers, and the request body
+
+        // Perform a POST request with the base URL, endpoint, headers, and the dynamic request body
         Response response = ApiUtils.postApi(baseUrl + endpoint, headers, requestBody);
 
         // Assert that the response status code is 200 (Success)
         assertEquals(200, response.getStatusCode());
-        // Use if you want to see the result of the successful booking
-        // System.out.println("**Flight booking successful!**");
+        System.out.println("**Flight booking successful!**");
 
         // Assert that the response body is not null and print it for verification
         assertNotNull("Response body should not be null", response.getBody().asString());
         String responseBody = response.getBody().asString();
-        // Use if you want to see the body of the results
-        // System.out.println("  - Response Body:\n" + responseBody);
+        System.out.println("  - Response Body:\n" + responseBody);
 
         // Parse the response body as JSON to check if it contains the expected flight details
         JSONObject jsonResponse = new JSONObject(responseBody);
-        
+
         // Ensure that the response contains data by checking its length
         assertTrue("Response should contain booking details", jsonResponse.length() > 0);
-        
+
         // Loop through each date in the response and verify that the flight details (price, airline) are present and valid
         for (String date : jsonResponse.keySet()) {
             JSONObject flightDetails = jsonResponse.getJSONObject(date);
@@ -127,5 +140,26 @@ public class ApiTests {
             assertTrue("Price should be greater than 0", flightDetails.getDouble("price") > 0);
             assertNotNull(flightDetails.getString("airline"));
         }
+    }
+}
+
+// Utility class for dynamic data generation
+class DynamicDataGenerator {
+
+    public static String getRandomCity() {
+        String[] cities = {"JED", "RUH", "DXB", "LHR", "NYC"};
+        Random random = new Random();
+        return cities[random.nextInt(cities.length)];
+    }
+
+    public static int getRandomPassengerCount() {
+        Random random = new Random();
+        return random.nextInt(3) + 1; // Returns a value between 1 and 3
+    }
+
+    public static String getRandomFlightClass() {
+        String[] flightClasses = {"Economy", "Business", "First"};
+        Random random = new Random();
+        return flightClasses[random.nextInt(flightClasses.length)];
     }
 }
