@@ -51,15 +51,19 @@ public class ApiTests {
 
         // Assert that the response status code is 200 (Success)
         assertEquals(200, response.getStatusCode());
-        System.out.println("**Currency list retrieved successfully!**");
+
+        // Uncomment the following line if you want to see the success message
+        // System.out.println("**Currency list retrieved successfully!**");
 
         // Assert that the response body is not null and print it for verification
         assertNotNull("Response body should not be null", response.getBody().asString());
-        String responseBody = response.getBody().asString();
-        System.out.println("  - Response Body:\n" + responseBody);
+
+        // Uncomment the following line if you want to see the response body
+        // String responseBody = response.getBody().asString();
+        // System.out.println("  - Response Body:\n" + responseBody);
 
         // Parse the response body as JSON to validate specific fields
-        JSONObject jsonResponse = new JSONObject(responseBody);
+        JSONObject jsonResponse = new JSONObject(response.getBody().asString());
 
         // Check if the base currency exists and assert that it's "SAR" (Saudi Riyal)
         JSONObject baseCurrency = jsonResponse.getJSONObject("base");
@@ -120,15 +124,19 @@ public class ApiTests {
 
         // Assert that the response status code is 200 (Success)
         assertEquals(200, response.getStatusCode());
-        System.out.println("**Flight booking successful!**");
+
+        // Uncomment the following line if you want to see the success message
+        // System.out.println("**Flight booking successful!**");
 
         // Assert that the response body is not null and print it for verification
         assertNotNull("Response body should not be null", response.getBody().asString());
-        String responseBody = response.getBody().asString();
-        System.out.println("  - Response Body:\n" + responseBody);
+
+        // Uncomment the following line if you want to see the response body
+        // String responseBody = response.getBody().asString();
+        // System.out.println("  - Response Body:\n" + responseBody);
 
         // Parse the response body as JSON to check if it contains the expected flight details
-        JSONObject jsonResponse = new JSONObject(responseBody);
+        JSONObject jsonResponse = new JSONObject(response.getBody().asString());
 
         // Ensure that the response contains data by checking its length
         assertTrue("Response should contain booking details", jsonResponse.length() > 0);
