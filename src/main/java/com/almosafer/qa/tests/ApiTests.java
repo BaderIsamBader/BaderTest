@@ -53,14 +53,14 @@ public class ApiTests {
         assertEquals(200, response.getStatusCode());
 
         // Uncomment the following line if you want to see the success message
-        // System.out.println("**Currency list retrieved successfully!**");
+        System.out.println("**Currency list retrieved successfully!**");
 
         // Assert that the response body is not null and print it for verification
         assertNotNull("Response body should not be null", response.getBody().asString());
 
         // Uncomment the following line if you want to see the response body
-        // String responseBody = response.getBody().asString();
-        // System.out.println("  - Response Body:\n" + responseBody);
+        String responseBody = response.getBody().asString();
+        System.out.println("  - Response Body:\n" + responseBody);
 
         // Parse the response body as JSON to validate specific fields
         JSONObject jsonResponse = new JSONObject(response.getBody().asString());
@@ -126,14 +126,14 @@ public class ApiTests {
         assertEquals(200, response.getStatusCode());
 
         // Uncomment the following line if you want to see the success message
-        // System.out.println("**Flight booking successful!**");
+        System.out.println("**Flight booking successful!**");
 
         // Assert that the response body is not null and print it for verification
         assertNotNull("Response body should not be null", response.getBody().asString());
 
         // Uncomment the following line if you want to see the response body
-        // String responseBody = response.getBody().asString();
-        // System.out.println("  - Response Body:\n" + responseBody);
+        String responseBody = response.getBody().asString();
+        System.out.println("  - Response Body:\n" + responseBody);
 
         // Parse the response body as JSON to check if it contains the expected flight details
         JSONObject jsonResponse = new JSONObject(response.getBody().asString());
